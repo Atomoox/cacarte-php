@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+* {
+    text-decoration: none !important;
+    color: black;
+}
+
 .flex--row {
     display: flex;
     flex-direction: row;
@@ -10,8 +15,15 @@
     flex-direction: column;
 }
 
-html {
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
     background-color: #F4F7FF;
     font-family: 'Inter', sans-serif;
+}
+
+body {
+    margin-top: -20px;
 }
 

@@ -1,17 +1,21 @@
-<form action="" method="post">
-    <fieldset>
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+   
+<script src="../ressources/js/map.js"></script>
+
+<script src="../ressources/js/prompt.js" type="module" defer></script>
+
+<form action="" method="post" class="flex--row map">
+    <fieldset data-stylefun="prompt.getStyle()">
         <div class="flex--row header">
             <div class="flex--column">
-                <h1>
+                <h1 data-textfun="prompt.getTitle()">
                     Plus court chemin
                 </h1>
-                <span>
-                    Deux destinations, une distance.
+                <span data-textfun="prompt.getDesc()">
+                    Trouvez le plus court chemin entre deux villes
                 </span>
             </div>
-            <div class="beta">
-                Beta
-            </div>
+            <div class="hide" data-onclick="prompt.changeState()" data-textfun="prompt.getButtonText()"></div>
         </div>
 
         <p class="InputAddOn">
@@ -27,16 +31,28 @@
             <input class="InputAddOn-field" type="submit" value="Calculer" />
         </p>
     </fieldset>
+
+    <div id="mapcaca"></div>
 </form>
 
+<script>
+    let villeDepart = false, villeArrivee = false, distance = false;
+    initMap();
+</script>
+<script src="../ressources/js/drag.js"></script>
+
 <?php if (!empty($_POST)) { ?>
-    <script src="./ressources/js/ajax.js"></script>
+    <script src="../ressources/js/ajax.js"></script>
+    
     <p>
         Le plus court chemin entre <?= $nomCommuneDepart ?> et <?= $nomCommuneArrivee ?> mesure <?= $distance ?>km.
     </p>
     <p id="meteo1"></p>
     <p id="meteo2"></p>
     <script>
-        displayBothMeteo("<?= $nomCommuneDepart ?>", "<?= $nomCommuneArrivee ?>");
+        villeDepart = "<?= $nomCommuneDepart ?>";
+        villeArrivee = "<?= $nomCommuneArrivee ?>"
+        distance = "<?= $distance ?>";
+        displayBothMeteo(villeDepart, villeArrivee);
     </script>
 <?php } ?>

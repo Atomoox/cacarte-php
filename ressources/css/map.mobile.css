@@ -1,0 +1,47 @@
+@media only screen and (max-width: 768px) {
+    .hide {
+        display: block !important;
+    }
+
+    footer {
+        display: none;
+    }
+    header {
+        display: none;
+    }
+
+    main {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 0;
+        height: calc(100%);
+        width: 100%;
+        overflow: hidden;
+    }
+
+    form {
+        padding: 0px;       
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        flex-direction: column;
+    }
+
+    .closed {
+        margin-bottom: -280px;
+    }
+
+    #mapcaca {
+        z-index: 1;
+    }
+
+    fieldset {
+        z-index: 2;
+        width: calc(100% - 40px);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        max-width: none;
+    }
+}

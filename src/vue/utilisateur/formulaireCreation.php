@@ -1,7 +1,21 @@
 <div>
-    <form method="<?= $method ?>" action="controleurFrontal.php">
+    <form method="<?= $method ?>" action="controleurFrontal.php" class="signup">
         <fieldset>
-            <legend>Mon formulaire :</legend>
+        <div class="flex--row header">
+            <div class="flex--column">
+                <h1>
+                    Sign up
+                </h1>
+                <span>
+                    Créer un compte
+                </span>
+            </div>
+            <a href="./controleurFrontal.php?action=afficherFormulaireConnexion&controleur=utilisateur">
+                <div class="beta">
+                    Se connecter
+                </div>
+            </a>
+        </div>
             <p class="InputAddOn">
                 <label class="InputAddOn-item" for="login_id">Login&#42;</label>
                 <input class="InputAddOn-field" type="text" value="" placeholder="Ex : rlebreton" name="login" id="login_id" required>

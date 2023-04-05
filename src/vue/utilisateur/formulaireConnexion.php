@@ -1,5 +1,5 @@
 <div>
-    <form method="<?= $method ?>" action="controleurFrontal.php">
+    <form method="<?= $method ?>" action="controleurFrontal.php" class="login">
         <fieldset>
         <div class="flex--row header">
             <div class="flex--column">
@@ -10,9 +10,11 @@
                     Se connecter a cacarte
                 </span>
             </div>
-            <div class="beta">
-                Créer un compte
-            </div>
+            <a href="./controleurFrontal.php?action=afficherFormulaireCreation&controleur=utilisateur">
+                <div class="beta">
+                    Créer un compte
+                </div>
+            </a>
         </div>
             <p class="InputAddOn">
                 <label class="InputAddOn-item" for="login_id">Login</label>
