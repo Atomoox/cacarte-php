@@ -1,0 +1,39 @@
+<?php
+
+namespace App\PlusCourtChemin\Modele\Repository;
+
+use App\PlusCourtChemin\Modele\DataObject\Utilisateur;
+use Exception;
+
+class UtilisateurRepository extends AbstractRepository
+{
+
+    public function construireDepuisTableau(array $utilisateurTableau): Utilisateur
+    {
+        return new Utilisateur(
+            $utilisateurTableau["login"],
+            $utilisateurTableau["nom"],
+            $utilisateurTableau["prenom"],
+            $utilisateurTableau["mdp_hache"],
+            $utilisateurTableau["est_admin"],
+            $utilisateurTableau["email"],
+            $utilisateurTableau["email_a_valider"],
+            $utilisateurTableau["nonce"],
+        );
+    }
+
+    public function getNomTable(): string
+    {
+        return 'utilisateur';
+    }
+
+    protected function getNomClePrimaire(): string
+    {
+        return 'login';
+    }
+
+    protected function getNomsColonnes(): array
+    {
+        return ["login", "nom", "prenom", "mdp_hache", "est_admin", "email", "email_a_valider", "nonce"];
+    }
+}
