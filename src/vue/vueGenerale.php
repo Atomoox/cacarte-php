@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../ressources/css/global.css">
     <link rel="stylesheet" href="../ressources/css/layout.css">
     <link rel="stylesheet" href="../ressources/css/map.mobile.css">
+    <link rel="stylesheet" href="../ressources/css/results.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />

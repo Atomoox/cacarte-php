@@ -4,6 +4,7 @@ fieldset {
     border-radius: 10px 10px 10px 10px;
     padding: 20px;
     max-width: 350px;
+    margin-left: -1px;
 
     transition: margin-bottom 0.4s ease-in-out;
 }
@@ -12,6 +13,12 @@ fieldset {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.map--display {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
 }
 
 #mapcaca {
@@ -29,12 +36,16 @@ input {
     border-radius: 5px;
 }
 
+input.error {
+    border: 1px solid red;
+}
+
 input::placeholder {
     font-weight: 400;
     color: rgba(0, 0, 0, 0.5);
 }
 
-input[type="submit"] {
+input[type="submit"], button {
     width: 100%;
     background: #D9D9D9;
     border-radius: 10px;
@@ -44,8 +55,13 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-input[type="submit"]:hover {
+input[type="submit"], button:hover {
     scale: 0.98;
+}
+
+button {
+    padding: 15px;
+    border: none;
 }
 
 h1 {

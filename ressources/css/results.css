@@ -1,0 +1,32 @@
+.map--display {
+    position: relative;
+}
+
+.result {
+    position: absolute;
+    top: 10;
+    right: 10;
+    z-index: 10;
+    gap: 10px;
+}
+
+.result > span {
+    font-size: 14px;
+    line-height: 17px;
+}
+
+#mapcaca {
+    z-index: 1;
+}
+
+.travel {
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+}
+
+.distance {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.7);
+}
