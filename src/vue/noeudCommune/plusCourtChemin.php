@@ -2,7 +2,12 @@
    
 <script src="../ressources/js/map.js" defer></script>
 
+<script src="../ressources/js/history.js" type="module" defer></script>
 <script src="../ressources/js/prompt.js" type="module" defer></script>
+
+<?php
+    echo($user ? "<input type='hidden' id='user' value='$user' data-stylefun='prompt.loadHistory()'>" : "");
+?>
 
 <form action="" method="post" class="flex--row map">
     <fieldset data-stylefun="prompt.getStyle()">
@@ -32,6 +37,9 @@
         <p>
             <button data-onclick="prompt.queryApi()" class="InputAddOn-field" type="button">Calculer</button>
         </p>
+
+        <div class="history" data-textfun="prompt.displayHistory()">
+        </div>
     </fieldset>
 
     <div class="map--display">
@@ -39,7 +47,7 @@
             <span class="travel" data-textfun="prompt.displayTravel()"></span>
             <span class="distance" data-textfun="prompt.displayDistance()"></span>
             <span class="distance" data-textfun="prompt.displayExecutionTime()"></span>
-            <span class="distance" data-textfun="prompt.getMeteo()"></span>
+            <span class="distance" data-textfun="prompt.displayMeteo()"></span>
         </div>
         <div id="mapcaca">
         </div>

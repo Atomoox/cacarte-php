@@ -110,5 +110,12 @@ label {
 }
 
 form {
+    display: block;
+    position: relative;
     height: 100%;
+}
+
+.history {
+    height: 50%;   
+    overflow-y: auto;
 }

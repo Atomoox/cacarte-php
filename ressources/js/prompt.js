@@ -34,6 +34,9 @@ reactive({
     currentResponse: false,
     currentMeteo: false,
     isOpened: true,
+    isDisplayed: true,
+    isLoaded: false,
+    currentHistory: [],
 
     isFormOpened: function () { return this.isOpened },
     changeState: function () {
@@ -65,6 +68,7 @@ reactive({
     queryApi: function() {
         const startInput = document.getElementById('nomCommuneDepart_id');
         const destinationinput = document.getElementById('nomCommuneArrivee_id');
+        const userInput = document.getElementById('user');
         const depart = startInput.value;
         const arrive = destinationinput.value;
 
@@ -77,8 +81,10 @@ reactive({
             return;
         };
 
+        const userQuery = userInput ? `&user=${userInput.value}` : '';
+
         const start_ts = performance.now();
-        fetch(`http://localhost:8083/shortest-path?depart=${depart}&arrivee=${arrive}`, {
+        fetch(`http://localhost:8083/shortest-path?depart=${depart}&arrivee=${arrive}${userQuery}`, {
             method: 'GET',     
         })
         .then(response => response.json())
@@ -89,29 +95,36 @@ reactive({
                 executionTime: (performance.now() - start_ts).toFixed(2),
             };
 
+            this.getMeteo();
+
             const path = data.points.map(x => [x.lat, x.lon]);
             map.viewPath(path);
         })
     },
 
-    getMeteo: async function() {
+    getMeteo: function() {
         const city1 = this.currentResponse?.villeDepart;
         const city2 = this.currentResponse?.villeArrivee;
-
-        if (!city1 || !city2) return;
-
-        const [geoCode1, geoCode2] = await Promise.all([
+    
+        if (!city1 || !city2) return Promise.resolve();
+    
+        return Promise.all([
             getGeocoding(city1),
             getGeocoding(city2)
-        ]);
-    
-        const [temp1, temp2] = await Promise.all([
-            getMeteoData(geoCode1),
-            getMeteoData(geoCode2)
-        ]);
-        
-        return `${city1} (${temp1}) - ${city2} (${temp2})`;
+        ]).then(([geoCode1, geoCode2]) => {
+            return Promise.all([
+                getMeteoData(geoCode1),
+                getMeteoData(geoCode2)
+            ]).then(([temp1, temp2]) => {
+                this.currentMeteo = `${city1} (${temp1}) - ${city2} (${temp2})`;
+            });
+        });
     },
+
+    displayMeteo: function() {
+        return this.currentMeteo;
+    },
+
     getresultStyle: function() {
         return {
             position: 'absolute',
@@ -138,6 +151,28 @@ reactive({
     },
     displayExecutionTime: function() {
         return `Le calcul du chemin a pris ${this.currentResponse.executionTime} ms`;
+    },
+
+    loadHistory: function() {
+        const user = document.getElementById('user').value;
+
+        if (!user) return;
+
+        fetch(`http://localhost:8083/history?user=${user}`)
+        .then(response => response.json())
+        .then(data => {
+            this.currentHistory = data;
+        });
+    },
+
+    displayHistory: function() {
+        return this.currentHistory.map(x => {
+            return `<div class="flex--column">
+                <span>${x.depart} - ${x.arrivee}</span>
+                <span>${x.distance} km</span>
+                <span>${x.executionTime} ms</span>
+            </div>`;
+        });
     }
 }, 'prompt');
 

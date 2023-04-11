@@ -7,6 +7,7 @@ use App\PlusCourtChemin\Lib\PlusCourtChemin;
 use App\PlusCourtChemin\Modele\DataObject\NoeudCommune;
 use App\PlusCourtChemin\Modele\Repository\NoeudCommuneRepository;
 use App\PlusCourtChemin\Modele\Repository\NoeudRoutierRepository;
+use App\PlusCourtChemin\Lib\ConnexionUtilisateur;
 
 class ControleurNoeudCommune extends ControleurGenerique
 {
@@ -50,7 +51,10 @@ class ControleurNoeudCommune extends ControleurGenerique
 
     public static function plusCourtChemin(): void
     {
+
+        $login = ConnexionUtilisateur::getLoginUtilisateurConnecte();
         $parametres = [
+            "user" => $login,
             "pagetitle" => "Plus court chemin",
             "cheminVueBody" => "noeudCommune/plusCourtChemin.php",
         ];
