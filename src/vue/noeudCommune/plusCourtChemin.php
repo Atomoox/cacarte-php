@@ -22,10 +22,12 @@
             <label class="InputAddOn-item" for="nomCommuneDepart_id">Nom de la commune de départ</label>
             <input data-onchange="" class="InputAddOn-field" type="text" value="" placeholder="Ex : Menton" name="nomCommuneDepart" id="nomCommuneDepart_id" required>
         </p>
+
         <p class="InputAddOn">
             <label class="InputAddOn-item" for="nomCommuneArrivee_id">Nom de la commune d'arrivée</label>
             <input class="InputAddOn-field" type="text" value="" placeholder="Ex : Menton" name="nomCommuneArrivee" id="nomCommuneArrivee_id" required>
         </p>
+
         <input type="hidden" name="XDEBUG_TRIGGER">
         <p>
             <button data-onclick="prompt.queryApi()" class="InputAddOn-field" type="button">Calculer</button>
@@ -37,6 +39,7 @@
             <span class="travel" data-textfun="prompt.displayTravel()"></span>
             <span class="distance" data-textfun="prompt.displayDistance()"></span>
             <span class="distance" data-textfun="prompt.displayExecutionTime()"></span>
+            <span class="distance" data-textfun="prompt.getMeteo()"></span>
         </div>
         <div id="mapcaca">
         </div>

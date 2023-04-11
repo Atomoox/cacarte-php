@@ -1,7 +1,38 @@
 import {applyAndRegister, reactive, startReactiveDom} from "./react.js";
 
+const getMeteoData = async ({latitude, longitude}) => {
+    const response = await fetch(`https://api.open-meteo.com/v1/meteofrance?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m`);
+    if (response.status !== 200) {
+        throw new Error('Failed to get meteo data');
+    }
+    const obj = JSON.parse(await response.text());
+    const temp = obj.hourly.temperature_2m.pop();
+    if (!temp) throw new Error('no temperature found');
+    return temp + ' ' + obj.hourly_units.temperature_2m;
+};
+
+const getGeocoding = async (city) => {
+    const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}`, {
+        headers: {
+            'accept': '*'
+        },
+    });
+
+    const text = await response.text();
+
+    if (response.status !== 200) {
+        throw new Error('Failed to get geocoding data');
+    }
+    const obj = JSON.parse(text);
+    const geocode = obj.results.shift();
+    if (!geocode) throw new Error('no geocode found');
+    const {latitude, longitude} = geocode;
+    return {latitude, longitude};
+};
+
 reactive({
     currentResponse: false,
+    currentMeteo: false,
     isOpened: true,
 
     isFormOpened: function () { return this.isOpened },
@@ -61,6 +92,25 @@ reactive({
             const path = data.points.map(x => [x.lat, x.lon]);
             map.viewPath(path);
         })
+    },
+
+    getMeteo: async function() {
+        const city1 = this.currentResponse?.villeDepart;
+        const city2 = this.currentResponse?.villeArrivee;
+
+        if (!city1 || !city2) return;
+
+        const [geoCode1, geoCode2] = await Promise.all([
+            getGeocoding(city1),
+            getGeocoding(city2)
+        ]);
+    
+        const [temp1, temp2] = await Promise.all([
+            getMeteoData(geoCode1),
+            getMeteoData(geoCode2)
+        ]);
+        
+        return `${city1} (${temp1}) - ${city2} (${temp2})`;
     },
     getresultStyle: function() {
         return {
