@@ -116,6 +116,26 @@ form {
 }
 
 .history {
+    margin-top: 10px;
     height: 50%;   
+    gap: 10px;
     overflow-y: auto;
+}
+
+.section {
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+}
+
+.hentry {
+    gap: 5px;
+    padding: 10px 0px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.path {
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
 }

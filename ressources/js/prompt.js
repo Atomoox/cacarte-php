@@ -99,6 +99,8 @@ reactive({
 
             const path = data.points.map(x => [x.lat, x.lon]);
             map.viewPath(path);
+
+            this.currentHistory.push(this.currentResponse);
         })
     },
 
@@ -167,10 +169,9 @@ reactive({
 
     displayHistory: function() {
         return this.currentHistory.map(x => {
-            return `<div class="flex--column">
-                <span>${x.depart} - ${x.arrivee}</span>
-                <span>${x.distance} km</span>
-                <span>${x.executionTime} ms</span>
+            return `<div class="flex--column hentry">
+                <span class="path">${x.villeDepart} - ${x.villeArrivee}</span>
+                <span class="distance">${x.distance.toFixed(2)} km</span>
             </div>`;
         });
     }

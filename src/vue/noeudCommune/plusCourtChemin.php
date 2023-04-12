@@ -2,7 +2,6 @@
    
 <script src="../ressources/js/map.js" defer></script>
 
-<script src="../ressources/js/history.js" type="module" defer></script>
 <script src="../ressources/js/prompt.js" type="module" defer></script>
 
 <?php
@@ -38,7 +37,11 @@
             <button data-onclick="prompt.queryApi()" class="InputAddOn-field" type="button">Calculer</button>
         </p>
 
-        <div class="history" data-textfun="prompt.displayHistory()">
+        <span class="section">
+            Historique
+        </span>
+
+        <div class="history" data-htmlfun="prompt.displayHistory()">
         </div>
     </fieldset>
 
