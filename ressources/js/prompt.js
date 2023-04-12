@@ -30,13 +30,14 @@ const getGeocoding = async (city) => {
     return {latitude, longitude};
 };
 
-reactive({
+const p = reactive({
     currentResponse: false,
     currentMeteo: false,
     isOpened: true,
     isDisplayed: true,
     isLoaded: false,
     currentHistory: [],
+    historyBody: '',
 
     isFormOpened: function () { return this.isOpened },
     changeState: function () {
@@ -100,7 +101,20 @@ reactive({
             const path = data.points.map(x => [x.lat, x.lon]);
             map.viewPath(path);
 
-            this.currentHistory.push(this.currentResponse);
+            this.currentHistory.push({
+                depart: data.villeDepart,
+                arrivee: data.villeArrivee,
+                distance: data.distance.toFixed(2),
+            });
+
+            this.historyBody = this.currentHistory.reverse().map((x, i) => {
+                return `
+                    <div class="flex--column hentry">
+                        <div class="path">${x.depart} - ${x.arrivee}</div>
+                        <div class="distance">${parseInt(x.distance).toFixed(2)} km</div>
+                    </div>
+                `
+            }).join('');
         })
     },
 
@@ -164,17 +178,22 @@ reactive({
         .then(response => response.json())
         .then(data => {
             this.currentHistory = data;
+            this.historyBody = this.currentHistory.reverse().map((x, i) => {
+                return `
+                    <div class="flex--column hentry">
+                        <div class="path">${x.depart} - ${x.arrivee}</div>
+                        <div class="distance">${x.distance.toFixed(2)} km</div>
+                    </div>
+                `
+            }).join('');
         });
     },
 
     displayHistory: function() {
-        return this.currentHistory.map(x => {
-            return `<div class="flex--column hentry">
-                <span class="path">${x.villeDepart} - ${x.villeArrivee}</span>
-                <span class="distance">${x.distance.toFixed(2)} km</span>
-            </div>`;
-        });
+        return this.historyBody;
     }
 }, 'prompt');
+
+applyAndRegister(() => p.displayHistory.bind(p)())
 
 startReactiveDom();

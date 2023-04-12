@@ -44,4 +44,12 @@
         left: 0;
         max-width: none;
     }
+
+    .section {
+        display: none;
+    }
+
+    .history {
+        display: none;
+    }
 }
